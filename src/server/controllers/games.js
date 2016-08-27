@@ -1,5 +1,5 @@
-const retro = require('retro-game-names');
-
-exports.all = (request, response) => {
-  response.send(retro.all);
+exports.index = (request, response) => {
+  response.render('pages/home', {
+    env: process.env.NODE_ENV
+  });
 };

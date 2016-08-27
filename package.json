@@ -11,10 +11,11 @@
   "files": [
     "dist"
   ],
-  "main": "dist/index.js",
+  "main": "index.js",
   "scripts": {
     "commit": "git cz",
     "prepublish": "gulp prepublish",
+    "start": "node bin/server.js",
     "test": "gulp"
   },
   "keywords": [
@@ -22,6 +23,14 @@
     "retro",
     "gaming"
   ],
+  "dependencies": {
+    "body-parser": "1.15.2",
+    "director": "1.2.8",
+    "express": "4.14.0",
+    "express-handlebars": "3.0.0",
+    "morgan": "1.7.0",
+    "retro-game-names": "1.2.2"
+  },
   "devDependencies": {
     "babel-core": "^6.11.4",
     "babel-eslint": "^6.1.2",

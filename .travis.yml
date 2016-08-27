@@ -1,7 +1,16 @@
+sudo: false
 language: node_js
-node_js:
-  - v6
-  - v5
-  - v4
-  - '0.12'
-  - '0.10'
+cache:
+  directories:
+    - node_modules
+node_js: 6
+branches:
+  only:
+    - master
+notifications:
+  email: false
+before_script:
+  - npm install -g gulp
+script: gulp
+after_success:
+  - npm run report-coverage

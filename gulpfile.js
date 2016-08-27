@@ -28,7 +28,7 @@ gulp.task('nsp', function (cb) {
 });
 
 gulp.task('pre-test', function () {
-  return gulp.src('lib/**/*.js')
+  return gulp.src('src/**/*.js')
     .pipe(excludeGitignore())
     .pipe(istanbul({
       includeUntested: true,
@@ -53,7 +53,7 @@ gulp.task('test', ['pre-test'], function (cb) {
 });
 
 gulp.task('watch', function () {
-  gulp.watch(['lib/**/*.js', 'test/**'], ['test']);
+  gulp.watch(['src/**/*.js', 'test/**'], ['test']);
 });
 
 gulp.task('coveralls', ['test'], function () {
@@ -66,7 +66,7 @@ gulp.task('coveralls', ['test'], function () {
 });
 
 gulp.task('babel', ['clean'], function () {
-  return gulp.src('lib/**/*.js')
+  return gulp.src('src/**/*.js')
     .pipe(babel())
     .pipe(gulp.dest('dist'));
 });

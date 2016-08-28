@@ -27,20 +27,30 @@ gulp.task('static', function () {
     .pipe(eslint.failAfterError());
 });
 
+gulp.task('ejs', ['clean'], function () {
+  gulp.src('src/**/*.ejs')
+    .pipe(ejs())
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('nsp', function (cb) {
+  nsp({package: path.resolve('package.json')}, cb);
+});
+
 gulp.task('sass', ['scrub'], function () {
   return gulp.src('src/browser/**/app.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('public'));
 });
 
-gulp.task('sass:watch', function () {
-  gulp.watch('src/**/*.scss', ['sass']);
+gulp.task('public:watch', function () {
+  gulp.watch('src/browser/**/*.scss', ['public']);
+  gulp.watch('src/browser/**/*.js', ['public']);
 });
 
-gulp.task('ejs', ['clean'], function () {
-  gulp.src('src/**/*.ejs')
-    .pipe(ejs())
-    .pipe(gulp.dest('dist'));
+gulp.task('images', ['clean'], function () {
+  gulp.src('src/browser/images/**/*')
+    .pipe(gulp.dest('public/images'));
 });
 
 gulp.task('js', ['scrub'], function() {
@@ -49,11 +59,7 @@ gulp.task('js', ['scrub'], function() {
     .pipe(browserify({
       insertGlobals : true
     }))
-    .pipe(gulp.dest('public'))
-});
-
-gulp.task('nsp', function (cb) {
-  nsp({package: path.resolve('package.json')}, cb);
+    .pipe(gulp.dest('public/js'))
 });
 
 gulp.task('pre-test', function () {
@@ -108,5 +114,6 @@ gulp.task('scrub', function () {
   return del('public');
 });
 
-gulp.task('prepublish', ['nsp', 'babel', 'js', 'sass', 'ejs']);
+gulp.task('public', [ 'js', 'sass', 'images']);
+gulp.task('prepublish', ['nsp', 'babel', 'ejs', 'public']);
 gulp.task('default', ['static', 'test', 'codecov']);

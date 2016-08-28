@@ -4,7 +4,7 @@ let l = (method, str) => {
   if (!console || !console[method]) {
     return;
   }
-  console[method](`[todomvc++] ${str}`);
+  console[method](`[retrorand] ${str}`);
 };
 
 let log = str => l('log', str);

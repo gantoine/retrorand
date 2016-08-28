@@ -11,10 +11,11 @@
   "files": [
     "dist"
   ],
-  "main": "dist/index.js",
+  "main": "index.js",
   "scripts": {
     "commit": "git cz",
     "prepublish": "gulp prepublish",
+    "start": "node bin/server.js",
     "test": "gulp"
   },
   "keywords": [
@@ -22,6 +23,14 @@
     "retro",
     "gaming"
   ],
+  "dependencies": {
+    "body-parser": "1.15.2",
+    "director": "1.2.8",
+    "ejs": "2.5.1",
+    "express": "4.14.0",
+    "morgan": "1.7.0",
+    "retro-game-names": "1.3.0"
+  },
   "devDependencies": {
     "babel-core": "^6.11.4",
     "babel-eslint": "^6.1.2",
@@ -36,7 +45,9 @@
     "ghooks": "1.3.2",
     "gulp": "^3.9.0",
     "gulp-babel": "^6.1.2",
+    "gulp-browserify": "0.5.1",
     "gulp-codecov": "2.0.2",
+    "gulp-ejs": "2.2.0",
     "gulp-eslint": "^2.0.0",
     "gulp-exclude-gitignore": "^1.0.0",
     "gulp-istanbul": "^1.0.0",
@@ -44,6 +55,8 @@
     "gulp-mocha": "^2.0.0",
     "gulp-nsp": "^2.1.0",
     "gulp-plumber": "^1.0.0",
+    "gulp-sass": "2.3.2",
+    "gulp-uglify": "2.0.0",
     "isparta": "^4.0.0",
     "validate-commit-msg": "2.6.1"
   },

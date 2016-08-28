@@ -10,12 +10,16 @@ var codecov = require('gulp-codecov');
 var babel = require('gulp-babel');
 var del = require('del');
 var isparta = require('isparta');
+var sass = require('gulp-sass');
+var ejs = require('gulp-ejs');
+var browserify = require('gulp-browserify');
+var uglify = require('gulp-uglify');
 
 // Initialize the babel transpiler so ES2015 files gets compiled
 // when they're loaded
 require('babel-register');
 
-gulp.task('static', function () {
+gulp.task('static', () => {
   return gulp.src('**/*.js')
     .pipe(excludeGitignore())
     .pipe(eslint())
@@ -23,11 +27,42 @@ gulp.task('static', function () {
     .pipe(eslint.failAfterError());
 });
 
+gulp.task('ejs', ['clean'], () => {
+  gulp.src('src/**/*.ejs')
+    .pipe(ejs())
+    .pipe(gulp.dest('dist'));
+});
+
 gulp.task('nsp', function (cb) {
   nsp({package: path.resolve('package.json')}, cb);
 });
 
-gulp.task('pre-test', function () {
+gulp.task('sass', ['scrub'], () => {
+  return gulp.src('src/browser/**/app.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('public'));
+});
+
+gulp.task('public:watch', () => {
+  gulp.watch('src/browser/**/*.scss', ['public']);
+  gulp.watch('src/browser/**/*.js', ['public']);
+});
+
+gulp.task('images', ['clean'], () => {
+  gulp.src('src/browser/images/**/*')
+    .pipe(gulp.dest('public/images'));
+});
+
+gulp.task('js', ['scrub'], () => {
+  gulp.src('src/browser/js/app.js')
+    .pipe(uglify())
+    .pipe(browserify({
+      insertGlobals: true
+    }))
+    .pipe(gulp.dest('public/js'));
+});
+
+gulp.task('pre-test', () => {
   return gulp.src('src/**/*.js')
     .pipe(excludeGitignore())
     .pipe(istanbul({
@@ -40,23 +75,23 @@ gulp.task('pre-test', function () {
 gulp.task('test', ['pre-test'], function (cb) {
   var mochaErr;
 
-  gulp.src('test/**/*.js')
+  gulp.src('src/**/*.test.js')
     .pipe(plumber())
     .pipe(mocha({reporter: 'spec'}))
     .on('error', function (err) {
       mochaErr = err;
     })
     .pipe(istanbul.writeReports())
-    .on('end', function () {
+    .on('end', () => {
       cb(mochaErr);
     });
 });
 
-gulp.task('watch', function () {
+gulp.task('watch', () => {
   gulp.watch(['src/**/*.js', 'test/**'], ['test']);
 });
 
-gulp.task('codecov', ['test'], function () {
+gulp.task('codecov', ['test'], () => {
   if (!process.env.CI) {
     return;
   }
@@ -65,15 +100,20 @@ gulp.task('codecov', ['test'], function () {
     .pipe(codecov());
 });
 
-gulp.task('babel', ['clean'], function () {
-  return gulp.src('src/**/*.js')
+gulp.task('babel', ['clean'], () => {
+  return gulp.src('src/server/**/*.js')
     .pipe(babel())
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('clean', function () {
+gulp.task('clean', () => {
   return del('dist');
 });
 
-gulp.task('prepublish', ['nsp', 'babel']);
+gulp.task('scrub', () => {
+  return del('public');
+});
+
+gulp.task('public', ['js', 'sass', 'images']);
+gulp.task('prepublish', ['nsp', 'babel', 'ejs', 'public']);
 gulp.task('default', ['static', 'test', 'codecov']);

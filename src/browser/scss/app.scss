@@ -1,0 +1,16 @@
+@import 'navbar';
+@import 'footer';
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+
+  -webkit-font-smoothing: antialiased;
+  -webkit-font-feature-settings: "kern", "liga", "pnum";
+  font-feature-settings: "kern", "liga", "pnum";
+}
+
+main {
+  flex: 1 0 auto;
+}

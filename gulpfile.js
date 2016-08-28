@@ -10,6 +10,10 @@ var codecov = require('gulp-codecov');
 var babel = require('gulp-babel');
 var del = require('del');
 var isparta = require('isparta');
+var sass = require('gulp-sass');
+var ejs = require("gulp-ejs");
+var browserify = require('gulp-browserify');
+var uglify = require('gulp-uglify');
 
 // Initialize the babel transpiler so ES2015 files gets compiled
 // when they're loaded
@@ -21,6 +25,31 @@ gulp.task('static', function () {
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
+});
+
+gulp.task('sass', ['scrub'], function () {
+  return gulp.src('src/browser/**/app.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('public'));
+});
+
+gulp.task('sass:watch', function () {
+  gulp.watch('src/**/*.scss', ['sass']);
+});
+
+gulp.task('ejs', ['clean'], function () {
+  gulp.src('src/**/*.ejs')
+    .pipe(ejs())
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('js', ['scrub'], function() {
+  gulp.src('src/browser/js/app.js')
+    .pipe(uglify())
+    .pipe(browserify({
+      insertGlobals : true
+    }))
+    .pipe(gulp.dest('public'))
 });
 
 gulp.task('nsp', function (cb) {
@@ -66,7 +95,7 @@ gulp.task('codecov', ['test'], function () {
 });
 
 gulp.task('babel', ['clean'], function () {
-  return gulp.src('src/**/*.js')
+  return gulp.src('src/server/**/*.js')
     .pipe(babel())
     .pipe(gulp.dest('dist'));
 });
@@ -75,5 +104,9 @@ gulp.task('clean', function () {
   return del('dist');
 });
 
-gulp.task('prepublish', ['nsp', 'babel']);
+gulp.task('scrub', function () {
+  return del('public');
+});
+
+gulp.task('prepublish', ['nsp', 'babel', 'js', 'sass', 'ejs']);
 gulp.task('default', ['static', 'test', 'codecov']);

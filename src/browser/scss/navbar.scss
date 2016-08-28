@@ -1,0 +1,16 @@
+.mdl-layout__header.transparent-header {
+  box-shadow: none;
+  background: none;
+
+  .mdl-layout__header-row {
+    padding: 0 30px;
+  }
+}
+
+.mdl-navigation .mdl-navigation__link {
+  opacity: .65;
+
+  &:hover {
+    opacity: 1;
+  }
+}

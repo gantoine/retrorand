@@ -3,7 +3,30 @@
 <% include ../partials/head %>
 
 <body>
+
+  <% include ../partials/navbar %>
+
   <main class="container">
+    <div class="row">
+      <div class="col s12 center-align">
+        <h1 class="corps-msg white-text">Want to play a retro game, but don't know which one? We can help!</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12 m4 l4">
+        <div>
+          <a class="waves-effect waves-light btn-large yellow darken-2 black-text">Random</a>
+        </div>
+        <div class="or-divider">
+          <span>OR</span>
+        </div>
+        <div class="input-field">
+          <input id="search" type="search" autocomplete="off">
+          <label for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons close">close</i>
+        </div>
+      </div>
+    </div>
   </main>
 
   <% include ../partials/footer %>

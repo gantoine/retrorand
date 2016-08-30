@@ -1,0 +1,36 @@
+body {
+  background-color: #B1B2D8;
+  background-image: url('/static/images/super_mario.png');
+  background-position: left bottom;
+  background-attachment: fixed;
+  background-repeat: repeat-x;
+}
+
+.input-field input[type=search] ~ .material-icons.close {
+  top: 0.5rem;
+}
+
+.or-divider {
+  border-top: 1px solid #fff;
+  color: #fff;
+  text-align: center;
+  margin: 2rem 0rem;
+}
+
+.or-divider > span {
+  position: relative;
+  top: -10px;
+  background: #272D4E;
+  padding: 0px 10px;
+}
+
+.corps-msg {
+  line-height: 1.5em;
+  margin-top: 2%;
+  font-size: 25px;
+}
+
+a.yellow {
+  width: 100%;
+  margin-bottom: 20px;
+}

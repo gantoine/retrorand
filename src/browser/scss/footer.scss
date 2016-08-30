@@ -3,11 +3,11 @@
 
   a {
     padding: 0 10px;
-    color: #9e9e9e;
+    color: white;
   }
 
   a:hover {
-    color: #757575;
+    color: darken(white, 10);
   }
 }
 
@@ -15,7 +15,7 @@ footer.page-footer a {
   line-height: 3rem;
 
   :hover {
-    color: #bdbdbd;
+    color: darken(white, 10);
   }
 }
 

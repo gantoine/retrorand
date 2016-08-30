@@ -6,15 +6,28 @@ body {
   background-repeat: repeat-x;
 }
 
-.input-field input[type=search] ~ .material-icons.close {
-  top: 0.5rem;
+.input-field input[type=search] {
+  border-color: white;
+
+  &~ label .search {
+    color: white;
+  }
+
+  &~ label.active {
+    -webkit-transform: none;
+    transform: none;
+
+    .search {
+      color: black;
+    }
+  }
 }
 
 .or-divider {
   border-top: 1px solid #fff;
   color: #fff;
   text-align: center;
-  margin: 2rem 0rem;
+  margin: 2rem 0;
 }
 
 .or-divider > span {
@@ -33,4 +46,15 @@ body {
 a.yellow {
   width: 100%;
   margin-bottom: 20px;
+}
+
+.actions-row,
+.results-column {
+  display: flex;
+}
+
+.card-panel.results {
+  margin: 0 0rem 1rem 2rem;
+  opacity: 0.9;
+  flex: 1;
 }

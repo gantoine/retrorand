@@ -1,3 +1,11 @@
+footer.page-footer.slim-footer {
+  padding-top: 17px;
+
+  .footer-copyright {
+    height: 53px;
+  }
+}
+
 .footer-copyright .container {
   text-align: center;
 
@@ -10,12 +18,3 @@
     color: darken(white, 10);
   }
 }
-
-footer.page-footer a {
-  line-height: 3rem;
-
-  :hover {
-    color: darken(white, 10);
-  }
-}
-

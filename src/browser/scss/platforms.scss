@@ -1,0 +1,23 @@
+#platforms {
+
+  .platform-collection{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .platform {
+    -webkit-transition: padding 200ms;
+    transition: padding 200ms;
+    padding: 1rem 5rem;
+
+    .platform-name {
+      display: none;
+    }
+
+    &:hover {
+      padding-left: 1rem;
+      padding-right: 9rem;
+    }
+  }
+}

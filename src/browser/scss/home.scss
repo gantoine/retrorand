@@ -6,7 +6,7 @@ body {
   background-repeat: repeat-x;
 }
 
-.input-field input[type=search] {
+main.input-field input[type=search] {
   border-color: white;
 
   &~ label .search {
@@ -20,6 +20,19 @@ body {
     .search {
       color: black;
     }
+  }
+}
+
+.modal-content .input-field {
+  margin-top: 0;
+
+  label.active {
+    -webkit-transform: none;
+    transform: none;
+  }
+
+  #platform-search {
+    margin-bottom: 0;
   }
 }
 
@@ -43,18 +56,23 @@ body {
   font-size: 25px;
 }
 
-a.yellow {
+a.yellow,
+a.green {
   width: 100%;
-  margin-bottom: 20px;
+  margin: 1rem 0;
 }
 
-.actions-row,
-.results-column {
+.content-row {
   display: flex;
 }
 
+.results-column {
+  display: flex;
+  flex-direction: column;
+}
+
 .card-panel.results {
-  margin: 0 0rem 1rem 2rem;
+  margin: 1rem;
   opacity: 0.9;
-  flex: 1;
+  height: 100%;
 }

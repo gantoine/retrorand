@@ -14,7 +14,6 @@ var sass = require('gulp-sass');
 var ejs = require('gulp-ejs');
 var source = require('vinyl-source-stream');
 var browserify = require('browserify');
-var uglify = require('gulp-uglify');
 var concat = require('gulp-concat-sourcemap');
 
 // Initialize the babel transpiler so ES2015 files gets compiled

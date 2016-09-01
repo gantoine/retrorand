@@ -6,15 +6,23 @@ body {
   background-repeat: repeat-x;
 }
 
-main {
+main.container {
+  display: flex;
+  flex-direction: column;
+
   a.yellow,
   a.green {
     width: 100%;
     margin: 1rem 0;
   }
+
+  .content-row {
+    flex: 1;
+    display: flex;
+  }
 }
 
-main.input-field input[type=search] {
+main .input-field input[type=search] {
   border-color: white;
 
   &~ label .search {
@@ -62,10 +70,6 @@ main.input-field input[type=search] {
   line-height: 1.5em;
   margin-top: 2%;
   font-size: 25px;
-}
-
-.content-row {
-  display: flex;
 }
 
 .results-column {

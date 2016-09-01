@@ -1,17 +1,20 @@
 footer.page-footer.slim-footer {
-  padding-top: 0;
-  margin-top: 0;
+  padding-top: 17px;
+
+  .footer-copyright {
+    height: 53px;
+  }
 }
 
-.footer-container {
-  margin: 0 20px;
+.footer-copyright .container {
   text-align: center;
 
   a {
     padding: 0 10px;
+    color: white;
   }
 
   a:hover {
-    color: #fff;
+    color: darken(white, 10);
   }
 }

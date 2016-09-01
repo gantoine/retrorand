@@ -14,7 +14,6 @@
   "main": "index.js",
   "scripts": {
     "commit": "git cz",
-    "prepublish": "gulp prepublish",
     "start": "node bin/server.js",
     "test": "gulp"
   },
@@ -29,13 +28,15 @@
     "ejs": "2.5.1",
     "express": "4.14.0",
     "morgan": "1.7.0",
-    "retro-game-names": "1.3.0"
+    "retro-game-names": "1.3.1"
   },
   "devDependencies": {
     "babel-core": "^6.11.4",
     "babel-eslint": "^6.1.2",
     "babel-preset-es2015": "6.9.0",
     "babel-register": "^6.9.0",
+    "browserify": "13.1.0",
+    "browserify-shim": "3.8.12",
     "commitizen": "2.8.2",
     "cz-conventional-changelog": "1.1.6",
     "del": "^2.0.2",
@@ -45,8 +46,8 @@
     "ghooks": "1.3.2",
     "gulp": "^3.9.0",
     "gulp-babel": "^6.1.2",
-    "gulp-browserify": "0.5.1",
     "gulp-codecov": "2.0.2",
+    "gulp-concat-sourcemap": "1.3.1",
     "gulp-ejs": "2.2.0",
     "gulp-eslint": "^2.0.0",
     "gulp-exclude-gitignore": "^1.0.0",
@@ -58,7 +59,8 @@
     "gulp-sass": "2.3.2",
     "gulp-uglify": "2.0.0",
     "isparta": "^4.0.0",
-    "validate-commit-msg": "2.6.1"
+    "validate-commit-msg": "2.6.1",
+    "vinyl-source-stream": "1.1.0"
   },
   "eslintConfig": {
     "extends": "xo-space",

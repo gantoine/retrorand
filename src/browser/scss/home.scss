@@ -1,0 +1,88 @@
+body {
+  background-color: #B1B2D8;
+  background-image: url('/static/images/super_mario.png');
+  background-position: left bottom;
+  background-attachment: fixed;
+  background-repeat: repeat-x;
+}
+
+main.container {
+  display: flex;
+  flex-direction: column;
+
+  a.yellow,
+  a.green {
+    width: 100%;
+    margin: 1rem 0;
+  }
+
+  .content-row {
+    flex: 1;
+    display: flex;
+  }
+
+  .about-row {
+    font-size: 20px;
+  }
+}
+
+main .input-field input[type=search] {
+  border-color: white;
+
+  &~ label .search {
+    color: white;
+  }
+
+  &~ label.active {
+    -webkit-transform: none;
+    transform: none;
+
+    .search {
+      color: black;
+    }
+  }
+}
+
+.modal-content .input-field {
+  margin-top: 0;
+
+  label.active {
+    -webkit-transform: none;
+    transform: none;
+  }
+
+  #platform-search {
+    margin-bottom: 0;
+  }
+}
+
+.or-divider {
+  border-top: 1px solid #fff;
+  color: #fff;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.or-divider > span {
+  position: relative;
+  top: -10px;
+  background: #B1B2D8;
+  padding: 0px 10px;
+}
+
+.corps-msg {
+  line-height: 1.5em;
+  margin-top: 2%;
+  font-size: 25px;
+}
+
+.results-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-panel.results {
+  margin: 1rem;
+  opacity: 0.9;
+  height: 100%;
+}

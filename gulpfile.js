@@ -50,7 +50,7 @@ gulp.task('watch', () => {
   gulp.watch('src/browser/**/*.js', ['public']);
 });
 
-gulp.task('images', ['clean'], () => {
+gulp.task('images', ['scrub'], () => {
   gulp.src('src/browser/images/**/*')
     .pipe(gulp.dest('public/images'));
 });

@@ -12,8 +12,10 @@ var del = require('del');
 var isparta = require('isparta');
 var sass = require('gulp-sass');
 var ejs = require('gulp-ejs');
-var browserify = require('gulp-browserify');
+var source = require('vinyl-source-stream');
+var browserify = require('browserify');
 var uglify = require('gulp-uglify');
+var concat = require('gulp-concat-sourcemap');
 
 // Initialize the babel transpiler so ES2015 files gets compiled
 // when they're loaded
@@ -33,7 +35,7 @@ gulp.task('ejs', ['clean'], () => {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('nsp', function (cb) {
+gulp.task('nsp', cb => {
   nsp({package: path.resolve('package.json')}, cb);
 });
 
@@ -43,7 +45,7 @@ gulp.task('sass', ['scrub'], () => {
     .pipe(gulp.dest('public'));
 });
 
-gulp.task('public:watch', () => {
+gulp.task('watch', () => {
   gulp.watch('src/browser/**/*.scss', ['public']);
   gulp.watch('src/browser/**/*.js', ['public']);
 });
@@ -54,11 +56,15 @@ gulp.task('images', ['clean'], () => {
 });
 
 gulp.task('js', ['scrub'], () => {
-  gulp.src('src/browser/js/app.js')
-    .pipe(uglify())
-    .pipe(browserify({
-      insertGlobals: true
-    }))
+  return browserify('src/browser/js/app.js')
+    .bundle()
+    .pipe(source('app.js'))
+    .pipe(gulp.dest('public/js'));
+});
+
+gulp.task('libs', ['scrub'], () => {
+  gulp.src('src/browser/js/vendor/*.js')
+    .pipe(concat('libs.js'))
     .pipe(gulp.dest('public/js'));
 });
 
@@ -114,6 +120,6 @@ gulp.task('scrub', () => {
   return del('public');
 });
 
-gulp.task('public', ['js', 'sass', 'images']);
-gulp.task('prepublish', ['nsp', 'babel', 'ejs', 'public']);
+gulp.task('public', ['js', 'sass', 'images', 'libs']);
+gulp.task('build', ['nsp', 'babel', 'ejs', 'public']);
 gulp.task('default', ['static', 'test', 'codecov']);

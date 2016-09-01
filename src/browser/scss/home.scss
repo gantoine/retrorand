@@ -6,6 +6,14 @@ body {
   background-repeat: repeat-x;
 }
 
+main {
+  a.yellow,
+  a.green {
+    width: 100%;
+    margin: 1rem 0;
+  }
+}
+
 main.input-field input[type=search] {
   border-color: white;
 
@@ -54,12 +62,6 @@ main.input-field input[type=search] {
   line-height: 1.5em;
   margin-top: 2%;
   font-size: 25px;
-}
-
-a.yellow,
-a.green {
-  width: 100%;
-  margin: 1rem 0;
 }
 
 .content-row {

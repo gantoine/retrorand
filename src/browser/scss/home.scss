@@ -43,6 +43,10 @@ main .input-field input[type=search] {
   }
 }
 
+.search-results .collection-header {
+  text-transform:capitalize;
+}
+
 .modal-content .input-field {
   margin-top: 0;
 

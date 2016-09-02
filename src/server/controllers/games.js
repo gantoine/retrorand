@@ -13,6 +13,11 @@ exports.about = (request, response) => {
 };
 
 exports.random = (request, response) => {
-  const result = retro.random();
+  const result = retro.random(request.query);
+  response.send(result);
+};
+
+exports.find = (request, response) => {
+  const result = retro.find(request.query);
   response.send(result);
 };

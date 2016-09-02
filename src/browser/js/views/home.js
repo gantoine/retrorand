@@ -7,7 +7,9 @@ let app = {
   el: '.retroapp',
 
   data: {
-    random: {}
+    random: {},
+    query: '',
+    found: {}
   },
 
   methods: {
@@ -19,6 +21,19 @@ let app = {
         }
         this.random = result;
       });
+    },
+
+    search: function () {
+      api.search(this.query, (err, result) => {
+        if (err) {
+          console.log(err.stack);
+        }
+        this.found = result;
+      });
+    },
+
+    clean: function (str) {
+      return str.replace(/_/g, ' ');
     }
 
   }

@@ -24,7 +24,8 @@
           <span>OR</span>
         </div>
         <div class="input-field">
-          <input id="search" type="search" autocomplete="off">
+          <input id="search" type="search" autocomplete="off" v-model="query"
+             @blur="search" @keyup.enter="search">
           <label for="search">
             <i class="material-icons search">search</i>
           </label>
@@ -35,9 +36,17 @@
       </div>
       <div class="col s12 m8 l8 results-column">
         <div class="card-panel results">
-          <section class="main" v-show="random.title" v-cloak>
+          <section v-show="random.title" v-cloak>
             <div>{{random.title}}</div>
             <div>{{random.platform}}</div>
+          </section>
+          <section class="search-results">
+            <ul class="collection with-header" v-for="platform in found">
+              <li class="collection-header"><h5>{{clean($key)}}</h5></li>
+              <li class="collection-item" v-for="game in platform">
+                {{game}}
+              </li>
+            </ul>
           </section>
         </div>
       </div>

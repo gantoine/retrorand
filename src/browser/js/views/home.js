@@ -15,6 +15,7 @@ let app = {
   methods: {
 
     roll: function () {
+      this.purge();
       api.random((err, result) => {
         if (err) {
           console.log(err.stack);
@@ -24,6 +25,7 @@ let app = {
     },
 
     search: function () {
+      this.purge();
       api.search(this.query, (err, result) => {
         if (err) {
           console.log(err.stack);
@@ -34,6 +36,15 @@ let app = {
 
     clean: function (str) {
       return str.replace(/_/g, ' ');
+    },
+
+    purge: function () {
+      this.random = {};
+      this.found = {};
+    },
+
+    clear: function () {
+      this.query = '';
     }
 
   }

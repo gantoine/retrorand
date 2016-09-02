@@ -25,7 +25,7 @@
         </div>
         <div class="input-field">
           <input id="search" type="search" autocomplete="off" v-model="query"
-             @blur="search" @keyup.enter="search">
+              @blur="search" @keyup.enter="search" @keyup.esc="clear">
           <label for="search">
             <i class="material-icons search">search</i>
           </label>
@@ -37,8 +37,8 @@
       <div class="col s12 m8 l8 results-column">
         <div class="card-panel results">
           <section v-show="random.title" v-cloak>
-            <div>{{random.title}}</div>
-            <div>{{random.platform}}</div>
+            <h5>{{random.title}}</h5>
+            <div>{{clean(random.platform)}}</div>
           </section>
           <section class="search-results">
             <ul class="collection with-header" v-for="platform in found">

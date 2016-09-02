@@ -4,4 +4,5 @@ const games = require('./games');
 module.exports = app => {
   app.get('/', games.home);
   app.get('/about', games.about);
+  app.get('/random', games.random);
 };

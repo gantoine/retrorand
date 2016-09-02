@@ -6,7 +6,7 @@
 
   <% include ../partials/navbar %>
 
-  <main class="container">
+  <main class="container retroapp">
     <div class="row">
       <div class="col s12 center-align">
         <h1 class="corps-msg white-text">Want to play a retro game, but don't know which one? We can help!</h1>
@@ -15,7 +15,10 @@
     <div class="row content-row">
       <div class="col s12 m4 l4">
         <div>
-          <a class="waves-effect waves-light btn-large yellow darken-2 black-text">Random</a>
+          <a class="waves-effect waves-light btn-large yellow darken-2 black-text"
+              @click="roll">
+            Random
+          </a>
         </div>
         <div class="or-divider">
           <span>OR</span>
@@ -32,6 +35,10 @@
       </div>
       <div class="col s12 m8 l8 results-column">
         <div class="card-panel results">
+          <section class="main" v-show="random.title" v-cloak>
+            <div>{{random.title}}</div>
+            <div>{{random.platform}}</div>
+          </section>
         </div>
       </div>
     </div>

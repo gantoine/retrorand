@@ -1,6 +1,7 @@
 'use strict';
 
 const api = require('../util/api');
+const _ = require('underscore');
 
 let app = {
 
@@ -58,6 +59,11 @@ let app = {
           console.log(err.stack);
         }
         this.info = result;
+        this.info.url = 'http://thegamesdb.net/game/' + result.id;
+        const boxart = _.findWhere(result.images, {type: 'boxart', side: 'front'}) ||
+          _.findWhere(result.images, {type: 'clearlogo'}) ||
+          _.findWhere(result.images, {type: 'screenshot'});
+        this.info.boxart = 'http://thegamesdb.net/banners/_gameviewcache/' + boxart.url;
       });
     }
 

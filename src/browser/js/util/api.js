@@ -23,6 +23,18 @@ module.exports = {
     }).fail(function (xhr, status, error) {
       callback(error);
     });
+  },
+
+  info(game, callback) {
+    /* eslint-disable no-undef */
+    $.ajax({
+      data: {game: game},
+      url: '/info'
+    }).done(function (data) {
+      callback(null, data);
+    }).fail(function (xhr, status, error) {
+      callback(error);
+    });
   }
 
 };

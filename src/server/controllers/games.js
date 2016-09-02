@@ -1,4 +1,14 @@
 const retro = require('retro-game-names');
+const thegamesdb = require('thegamesdb');
+const _ = require('underscore');
+
+var platforms = [];
+
+thegamesdb.getPlatformsList().then(savePlatforms);
+
+function savePlatforms(platList) {
+  platforms = platList;
+}
 
 exports.home = (request, response) => {
   response.render('pages/home', {
@@ -21,3 +31,19 @@ exports.find = (request, response) => {
   const result = retro.find(request.query);
   response.send(result);
 };
+
+exports.info = (request, response) => {
+  const game = request.query.game;
+  const plat = _.findWhere(platforms, {alias: game.platform.replace(/_/g, '-')});
+  if (plat) {
+    thegamesdb.getGamesList({name: game.title, platform: plat.name}).then(fetchInfo.bind(response));
+  }
+};
+
+function fetchInfo(gamesList) {
+  thegamesdb.getGame({id: _.first(gamesList).id}).then(sendInfo.bind(this));
+}
+
+function sendInfo(game) {
+  this.send(game);
+}

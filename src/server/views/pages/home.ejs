@@ -38,7 +38,20 @@
         <div class="card-panel results">
           <section v-show="random.title" v-cloak>
             <h5>{{random.title}}</h5>
-            <div>{{clean(random.platform)}}</div>
+            <h5>{{clean(random.platform)}}</h5>
+          </section>
+          <section v-show="info.id" v-cloak>
+            <div v-show="info.id">TGDB ID: {{info.id}}</div>
+            <div v-show="info.releaseDate">Release Date: {{info.releaseDate}}</div>
+            <div v-show="info.ESRB">ESRB Rating: {{info.ESRB}}</div>
+            <iframe v-show="info.youtube" width="100%" v-bind:src="info.youtube"></iframe>
+            <div v-show="info.publisher">Publisher: {{info.publisher}}</div>
+            <div v-show="info.developer">Developer: {{info.developer}}</div>
+            <div v-show="info.players">Players: {{info.players}}</div>
+            <div v-show="info.rating">Rating: {{info.rating}}</div>
+            <ul v-show="info.genres" v-for="genre in info.genres">
+              <li>{{genre}}</li>
+            </ul>
           </section>
           <section class="search-results">
             <ul class="collection with-header" v-for="platform in found">

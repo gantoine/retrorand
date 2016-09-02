@@ -9,7 +9,8 @@ let app = {
   data: {
     random: {},
     query: '',
-    found: {}
+    found: {},
+    info: {}
   },
 
   methods: {
@@ -21,6 +22,7 @@ let app = {
           console.log(err.stack);
         }
         this.random = result;
+        this.gdb(result);
       });
     },
 
@@ -35,16 +37,28 @@ let app = {
     },
 
     clean: function (str) {
-      return str.replace(/_/g, ' ');
+      if (str) {
+        return str.replace(/_/g, ' ');
+      }
     },
 
     purge: function () {
       this.random = {};
       this.found = {};
+      this.info = {};
     },
 
     clear: function () {
       this.query = '';
+    },
+
+    gdb: function (game) {
+      api.info(game, (err, result) => {
+        if (err) {
+          console.log(err.stack);
+        }
+        this.info = result;
+      });
     }
 
   }

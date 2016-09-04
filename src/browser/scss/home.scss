@@ -89,4 +89,10 @@ main .input-field input[type=search] {
   margin: 1rem;
   opacity: 0.9;
   height: 100%;
+  max-height: 80vh;
+  overflow: scroll;
+}
+
+.boximage {
+  max-width: 100%;
 }

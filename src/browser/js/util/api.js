@@ -16,7 +16,7 @@ module.exports = {
   search(query, callback) {
     /* eslint-disable no-undef */
     $.ajax({
-      data: {title: query},
+      data: {title: query, ignoreCase: true},
       url: '/find'
     }).done(function (data) {
       callback(null, data);

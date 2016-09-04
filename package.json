@@ -29,7 +29,7 @@
     "express": "4.14.0",
     "helmet": "2.1.2",
     "morgan": "1.7.0",
-    "retro-game-names": "1.3.1",
+    "retro-game-names": "1.4.1",
     "thegamesdb": "0.1.2",
     "vue": "1.0.26"
   },

@@ -11,19 +11,24 @@ let app = {
     random: {},
     query: '',
     found: {},
-    info: {}
+    info: {},
+    showResult: false,
+    showFound: false
   },
 
   methods: {
 
     roll: function () {
       this.purge();
+      this.clear();
       api.random((err, result) => {
         if (err) {
           console.log(err.stack);
+        } else {
+          this.random = result;
+          this.showResult = true;
+          this.gdb(result);
         }
-        this.random = result;
-        this.gdb(result);
       });
     },
 
@@ -32,8 +37,10 @@ let app = {
       api.search(this.query, (err, result) => {
         if (err) {
           console.log(err.stack);
+        } else {
+          this.found = result;
+          this.showFound = true;
         }
-        this.found = result;
       });
     },
 
@@ -47,6 +54,8 @@ let app = {
       this.random = {};
       this.found = {};
       this.info = {};
+      this.showFound = false;
+      this.showResult = false;
     },
 
     clear: function () {
@@ -57,16 +66,17 @@ let app = {
       api.info(game, (err, result) => {
         if (err) {
           console.log(err.stack);
+        } else if (result) {
+          this.random = {};
+          this.info = result;
+          this.info.url = 'http://thegamesdb.net/game/' + result.id;
+          const boxart = _.findWhere(result.images, {type: 'boxart', side: 'front'}) ||
+            _.findWhere(result.images, {type: 'clearlogo'}) ||
+            _.findWhere(result.images, {type: 'screenshot'});
+          this.info.boxart = 'http://thegamesdb.net/banners/_gameviewcache/' + boxart.url;
         }
-        this.info = result;
-        this.info.url = 'http://thegamesdb.net/game/' + result.id;
-        const boxart = _.findWhere(result.images, {type: 'boxart', side: 'front'}) ||
-          _.findWhere(result.images, {type: 'clearlogo'}) ||
-          _.findWhere(result.images, {type: 'screenshot'});
-        this.info.boxart = 'http://thegamesdb.net/banners/_gameviewcache/' + boxart.url;
       });
     }
-
   }
 };
 

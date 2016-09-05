@@ -1,5 +1,5 @@
 {
-  "name": "random-game-app",
+  "name": "retrorand",
   "version": "0.0.0",
   "description": "A demo app to flex the random-game-names package.",
   "homepage": "",
@@ -16,6 +16,10 @@
     "commit": "git cz",
     "start": "node bin/server.js",
     "test": "gulp"
+  },
+  "engines": {
+    "node": "6.2.2",
+    "npm": "3.10.6"
   },
   "keywords": [
     "random",

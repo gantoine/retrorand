@@ -2,13 +2,20 @@ sudo: false
 language: node_js
 cache:
   directories:
-    - node_modules
+  - node_modules
 node_js: 6
 branches:
   only:
-    - master
+  - master
 notifications:
   email: false
 before_script:
-  - npm install -g gulp
+- npm install -g gulp
 script: gulp
+deploy:
+  provider: heroku
+  api_key:
+    secure: F7o0GanPi23REsrtzJcgNgR3BfC19u/B+1SdorVJtqNHmyF7wlSvRnzx3aPGblFh32P+HkjORLYkxKdH83rXP0phv8cV6jAzipDj/Av7AbNPjz+gV8SzcfNuOH919QJf42I6Mlu4nDlLRJSl4N1xnEtbOlWY/DGNuGufFSCOIUPvtu7SctyYWsTl9/2ub0stC8s0MZCM4YboPXs5QPe38F2/+K5lEXbcbQxeQWhc4yJoU0sFdIZGl90iaGDSqfpNbq37w07XKX8Ky9cuJB1E+K8W7ADe0iXjzRyhcR4DYEXvTR6FMnsuD8ID0k7lxjNdhv9rSiO6P02csGELQduIiA3oJfMsWvCj2GfZd0GrttKJpksKO0U9qx2FzLc8cFSCB4qm3jaI6SZMtY3zGv+jCYgvpShsh9tRGvfE7Qy/6HWDTXeevfmHWmEymRIqWbafR15xCCmXI44yLhHQL5Crf5ssxTlmQmb/9TEIQ1teVXVS+Ut6gZFkHKpYu7f2/3fO1gn9VI6pmY87fR2Ux8iNzra4bdXDV2wJYd3V8m7UdR6lOb0NIOKLjLbzIjngQOJzPDJkcPXQY+I4s0siC4cKrmVjq4PDbTJh1erPKvHhwEpcXTjFOVJtx0h0cIXGT/DKZtVYQyYgf+mCluUYGxBWSWAvsk6r9M/456yxA8JN6V0=
+  app: retrorand
+  on:
+    repo: GAntoine/retrorand

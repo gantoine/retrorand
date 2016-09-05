@@ -34,7 +34,8 @@ let app = {
     consoles: [],
     showResult: false,
     showFound: false,
-    showPlatform: false
+    showPlatform: false,
+    showError: false
   },
 
   created: function () {
@@ -66,14 +67,16 @@ let app = {
 
     search: function () {
       this.purge();
-      api.search(this.query, this.active(), (err, result) => {
-        if (err) {
-          console.log(err.stack);
-        } else {
-          this.found = result;
-          this.showFound = true;
-        }
-      });
+      if (this.query) {
+        api.search(this.query, this.active(), (err, result) => {
+          if (err) {
+            console.log(err.stack);
+          } else {
+            this.found = result;
+            this.showFound = true;
+          }
+        });
+      }
     },
 
     library: function () {
@@ -96,6 +99,7 @@ let app = {
         } else {
           this.platform = result;
           this.platform.title = title;
+          this.platform.url = `http://thegamesdb.net/platform/${title}`;
 
           const boxart = _.findWhere(result.images, {type: 'boxart'}) ||
             _.findWhere(result.images, {type: 'fanart'}) ||
@@ -104,8 +108,17 @@ let app = {
           if (boxart) {
             this.platform.boxart = 'http://thegamesdb.net/banners/_platformviewcache' + boxart.url;
           }
+
+          $('.materialboxed').materialbox();
         }
       });
+    },
+
+    findInfo: function (event) {
+      const _target = $(event.target);
+      const _key = _target.data('key') || _target.parent().data('key');
+      this.random = {platform: _key};
+      this.library();
     },
 
     gameInfo: function (event) {
@@ -113,7 +126,7 @@ let app = {
       this._general(_game);
     },
 
-    foundInfo: function (event) {
+    foundGameInfo: function (event) {
       const _target = $(event.target);
       const _key = _target.siblings('.collection-header').first().data('key');
       const _game = {title: _target.text().trim(), platform: _key};
@@ -133,6 +146,7 @@ let app = {
           console.log(err.stack);
         } else if (result && result.title === this.random.title) {
           this.info = result;
+          this.info.url = `http://thegamesdb.net/game/${result.id}`;
 
           const boxart = _.findWhere(result.images, {type: 'boxart', side: 'front'}) ||
             _.findWhere(result.images, {type: 'clearlogo'}) ||
@@ -144,6 +158,11 @@ let app = {
           if (this.info.releaseDate) {
             this.info.releaseDate = (new Date(this.info.releaseDate)).toLocaleDateString();
           }
+
+          $('.materialboxed').materialbox();
+        } else {
+          this.showError = true;
+          Materialize.toast('Error fetching game info!', 3000);
         }
       });
     },
@@ -153,7 +172,12 @@ let app = {
     },
 
     select: function (event) {
-      $(event.target).toggleClass('active');
+      const _target = $(event.target);
+      if ($(event.target).hasClass('card-panel')) {
+        _target.toggleClass('active');
+      } else {
+        _target.parent('.card-panel').toggleClass('active');
+      }
     },
 
     active: function () {
@@ -171,6 +195,7 @@ let app = {
       this.showFound = false;
       this.showResult = false;
       this.showPlatform = false;
+      this.showError = false;
     },
 
     clear: function () {

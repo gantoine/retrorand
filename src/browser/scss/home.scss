@@ -24,6 +24,7 @@ main.container {
   a.green {
     width: 100%;
     margin: 1rem 0;
+    z-index: 0;
   }
 }
 
@@ -39,13 +40,16 @@ main.container {
     transform: none;
 
     .search {
-      color: black;
+      color: #424242;
     }
   }
 }
 
-.search-results .collection-header {
-  text-transform:capitalize;
+.search-results,
+.platform-results {
+  .collection-header h5 {
+    text-transform: uppercase;
+  }
 }
 
 .modal-content .input-field {
@@ -105,7 +109,7 @@ main.container {
 
 .game-platform {
   font-size: 1.5rem;
-  text-transform: capitalize;
+  text-transform: uppercase;
   cursor: pointer;
 }
 
@@ -113,6 +117,33 @@ main.container {
   padding-top: 1rem;
 }
 
-.collection-item {
+.search-results .collection.with-header .collection-header,
+.collection .collection-item {
   cursor: pointer;
+  transition: background-color 100ms ease;
+
+  &:hover {
+    background-color: darken(white, 5);
+  }
+
+  &:active {
+    background-color: darken(white, 10);
+  }
+}
+
+.random-results {
+  text-align: center;
+}
+
+.small-collection {
+  margin: 0.5rem 0 1rem 0;
+
+  .small-item {
+    padding-left: 1rem;
+  }
+}
+
+.fetch-error {
+  margin-left: 20px;
+  font-size: 18px;
 }

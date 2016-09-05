@@ -2,19 +2,12 @@ body {
   background-color: #B1B2D8;
   background-image: url('/static/images/super_mario.png');
   background-position: left bottom;
-  background-attachment: fixed;
   background-repeat: repeat-x;
 }
 
 main.container {
   display: flex;
   flex-direction: column;
-
-  a.yellow,
-  a.green {
-    width: 100%;
-    margin: 1rem 0;
-  }
 
   .content-row {
     flex: 1;
@@ -26,7 +19,15 @@ main.container {
   }
 }
 
-main .input-field input[type=search] {
+.main-controls {
+  a.yellow,
+  a.green {
+    width: 100%;
+    margin: 1rem 0;
+  }
+}
+
+.main-controls .input-field input[type=search] {
   border-color: white;
 
   &~ label .search {
@@ -41,6 +42,10 @@ main .input-field input[type=search] {
       color: black;
     }
   }
+}
+
+.search-results .collection-header {
+  text-transform:capitalize;
 }
 
 .modal-content .input-field {
@@ -73,7 +78,7 @@ main .input-field input[type=search] {
 .corps-msg {
   line-height: 1.5em;
   margin-top: 2%;
-  font-size: 25px;
+  font-size: 2rem;
 }
 
 .results-column {
@@ -85,4 +90,29 @@ main .input-field input[type=search] {
   margin: 1rem;
   opacity: 0.9;
   height: 100%;
+  max-height: 100vh;
+  overflow: scroll;
+  transition: height 0.4s ease;
+}
+
+.boximage {
+  max-width: 100%;
+}
+
+.game-title {
+  font-size: 2rem;
+}
+
+.game-platform {
+  font-size: 1.5rem;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.tgdb-results {
+  padding-top: 1rem;
+}
+
+.collection-item {
+  cursor: pointer;
 }

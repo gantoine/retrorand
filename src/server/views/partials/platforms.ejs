@@ -1,116 +1,40 @@
-<div class="platform-collection">
-  <div class="card-panel platform">
-    <img src="/consoles/atari_lynx.png"/>
-    <div class="platform-name">Nintendo Entertainment System</div>
+<div id="platforms" class="modal bottom-sheet">
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s2 m6 l6">
+        <h4 class="padded-controls">Platforms</h4>
+      </div>
+      <div class="col s2 m2 l2">
+        <a class="waves-effect waves-light btn yellow darken-2 black-text padded-controls"
+            @click="reset">
+          Deselect All
+        </a>
+      </div>
+      <div class="col s8 m4 l4">
+        <div class="input-field">
+          <input id="platform-search" type="search" autocomplete="off" v-model="filter">
+          <label for="platform-search">
+            <i class="material-icons search">search</i>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="platform-collection">
+      <div v-for="plat in platforms | filterBy filter" class="card-panel platform" @click="select">
+        <img v-bind:src="url(plat)"/>
+        <div class="platform-name" data-name="{{plat}}">{{clean(plat)}}</div>
+      </div>
+    </div>
+
+    <div class="platform-collection">
+      <div v-for="cons in consoles | filterBy filter" class="card-panel platform-dry" @click="select">
+        <div data-name="{{cons}}">{{clean(cons)}}</div>
+      </div>
+    </div>
+
   </div>
-  <div class="card-panel platform">
-    <img src="/consoles/famicom.png"/>
-    <div class="platform-name">Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform">
-    <img src="/consoles/game_boy_advance.png"/>
-    <div class="platform-name">Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform">
-    <img src="/consoles/game_boy_color.png"/>
-    <div class="platform-name">Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform">
-    <img src="/consoles/game_gear.png"/>
-    <div class="platform-name">Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform">
-    <img src="/consoles/gameboy.png"/>
-    <div class="platform-name">Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform">
-    <img src="/consoles/master_system_2.png"/>
-    <div class="platform-name">Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform">
-    <img src="/consoles/neo_geo.png"/>
-    <div class="platform-name">Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform">
-    <img src="/consoles/nes.png"/>
-    <div class="platform-name">Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform">
-    <img src="/consoles/nes_pc_engine.png"/>
-    <div class="platform-name">Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform">
-    <img src="/consoles/sega_mega_drive.png"/>
-    <div class="platform-name">Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform">
-    <img src="/consoles/sega_nomad.png"/>
-    <div class="platform-name">Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform">
-    <img src="/consoles/super_game_boy.png"/>
-    <div class="platform-name">Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform">
-    <img src="/consoles/super_nintendo.png"/>
-    <div class="platform-name">Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform">
-    <img src="/consoles/super_nintendo_snes.png"/>
-    <div class="platform-name">Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform">
-    <img src="/consoles/turbo_grafx_16.png"/>
-    <div class="platform-name">Nintendo Entertainment System</div>
-  </div>
-</div>
-<div class="platform-collection">
-  <div class="card-panel platform-dry">
-    <div>Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform-dry">
-    <div>Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform-dry">
-    <div>Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform-dry">
-    <div>Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform-dry">
-    <div>Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform-dry">
-    <div>Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform-dry">
-    <div>Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform-dry">
-    <div>Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform-dry">
-    <div>Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform-dry">
-    <div>Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform-dry">
-    <div>Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform-dry">
-    <div>Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform-dry">
-    <div>Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform-dry">
-    <div>Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform-dry">
-    <div>Nintendo Entertainment System</div>
-  </div>
-  <div class="card-panel platform-dry">
-    <div>Nintendo Entertainment System</div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-light btn-flat">Done</a>
   </div>
 </div>

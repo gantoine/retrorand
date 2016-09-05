@@ -48,10 +48,19 @@ exports.games = (request, response) => {
   response.send(retro.games(request.query.platform));
 };
 
+exports.platform = (request, response) => {
+  const plat = _.findWhere(platforms, {alias: request.query.title.replace(/_/g, '-')});
+  thegamesdb.getPlatform({id: plat.id}).then(sendPlatform.bind(response));
+};
+
 function fetchInfo(gamesList) {
   thegamesdb.getGame({id: _.first(gamesList).id}).then(sendInfo.bind(this));
 }
 
 function sendInfo(game) {
   this.send(game);
+}
+
+function sendPlatform(platform) {
+  this.send(platform);
 }

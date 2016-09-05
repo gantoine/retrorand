@@ -9,4 +9,5 @@ module.exports = app => {
   app.get('/find', games.find);
   app.get('/info', games.info);
   app.get('/games', games.games);
+  app.get('/platform', games.platform);
 };

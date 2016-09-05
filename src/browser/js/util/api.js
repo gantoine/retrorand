@@ -57,6 +57,17 @@ module.exports = {
     }).fail(function (xhr, status, error) {
       callback(error);
     });
+  },
+
+  platform(title, callback) {
+    $.ajax({
+      data: {title: title},
+      url: '/platform'
+    }).done(function (data) {
+      callback(null, data);
+    }).fail(function (xhr, status, error) {
+      callback(error);
+    });
   }
 
 };

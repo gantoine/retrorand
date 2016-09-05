@@ -1,9 +1,13 @@
 #platforms {
+  .padded-controls {
+    margin-top: 0.5rem;
+  }
 
   .platform-collection{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    text-transform: capitalize;
   }
 
   .platform {

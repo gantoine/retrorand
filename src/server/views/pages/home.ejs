@@ -12,7 +12,7 @@
         <h1 class="corps-msg white-text">Want to play a retro game, but don't know which one? We can help!</h1>
       </div>
     </div>
-    <div class="row content-row">
+    <div class="row content-row main-controls">
       <div class="col s12 m4 l4">
         <div>
           <a class="waves-effect waves-light btn-large yellow darken-2 black-text"
@@ -35,9 +35,9 @@
         </div>
       </div>
       <div class="col s12 m8 l8 results-column">
-        <div class="card-panel results">
+        <div class="card-panel results grey-text text-darken-4">
           <section v-if="showResult">
-            <h4>{{random.title || info.title}}</h4>
+            <div class="game-title">{{random.title || info.title}}</div>
             <div v-show="random.platform">
               <h5>{{clean(random.platform)}}</h5>
             </div>
@@ -63,7 +63,7 @@
                       Genres:
                       <li v-for="genre in info.genres">{{genre}}</li>
                     </ul>
-                    <a v-show="info.id" v-bind:href="info.url"
+                    <a v-show="info.id" v-bind:href="info.url" target="_blank"
                         class="waves-effect waves-teal btn-flat">
                       View On TheGamesDB
                     </a>
@@ -87,32 +87,10 @@
         </div>
       </div>
     </div>
-  </main>
 
-  <div id="platforms" class="modal bottom-sheet">
-    <div class="modal-content">
-      <div class="row">
-        <div class="col s2 m6 l6">
-          <h4>Platforms</h4>
-        </div>
-        <div class="col s2 m2 l2">
-          <a class="waves-effect waves-light btn yellow darken-2 black-text">Select All</a>
-        </div>
-        <div class="col s8 m4 l4">
-          <div class="input-field">
-            <input id="platform-search" type="search" autocomplete="off">
-            <label for="platform-search">
-              <i class="material-icons search">search</i>
-            </label>
-          </div>
-        </div>
-      </div>
-      <% include ../partials/platforms %>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-light btn-flat">Done</a>
-    </div>
-  </div>
+    <% include ../partials/platforms %>
+
+  </main>
 
   <% include ../partials/footer %>
 

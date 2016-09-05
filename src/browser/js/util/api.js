@@ -2,10 +2,11 @@
 
 module.exports = {
 
-  random(callback) {
+  random(active, callback) {
     /* eslint-disable no-undef */
     $.ajax({
-      url: '/random'
+      url: '/random',
+      data: _setData({}, active)
     }).done(function (data) {
       callback(null, data);
     }).fail(function (xhr, status, error) {
@@ -13,11 +14,21 @@ module.exports = {
     });
   },
 
-  search(query, callback) {
+  search(query, active, callback) {
     /* eslint-disable no-undef */
     $.ajax({
-      data: {title: query, ignoreCase: true},
+      data: _setData({title: query, ignoreCase: true}, active),
       url: '/find'
+    }).done(function (data) {
+      callback(null, data);
+    }).fail(function (xhr, status, error) {
+      callback(error);
+    });
+  },
+
+  platforms(callback) {
+    $.ajax({
+      url: '/platforms'
     }).done(function (data) {
       callback(null, data);
     }).fail(function (xhr, status, error) {
@@ -38,3 +49,12 @@ module.exports = {
   }
 
 };
+
+function _setData(data, active) {
+  if (active.length === 1) {
+    data.platform = active[0];
+  } else if (active.length > 1) {
+    data.platforms = active;
+  }
+  return data;
+}

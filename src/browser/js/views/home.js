@@ -3,6 +3,21 @@
 const api = require('../util/api');
 const _ = require('underscore');
 
+const platformIcons = [
+  'atari_lynx',
+  'nintendo_gameboy_advance',
+  'nintendo_gameboy_color',
+  'sega_game_gear',
+  'nintendo_gameboy',
+  'sega_master_system',
+  'neo_geo_cd',
+  'nintendo_entertainment_system_nes',
+  'super_nintendo_snes',
+  'turbografx_16'
+];
+
+/* eslint-disable no-new */
+/* eslint-disable no-undef */
 let app = {
 
   el: '.retroapp',
@@ -12,8 +27,20 @@ let app = {
     query: '',
     found: {},
     info: {},
+    platforms: platformIcons,
+    consoles: [],
     showResult: false,
     showFound: false
+  },
+
+  created: function () {
+    api.platforms((err, result) => {
+      if (err) {
+        console.log(err.stack);
+      } else {
+        this.consoles = _.difference(result, this.platforms);
+      }
+    });
   },
 
   methods: {
@@ -21,7 +48,8 @@ let app = {
     roll: function () {
       this.purge();
       this.clear();
-      api.random((err, result) => {
+
+      api.random(this.active(), (err, result) => {
         if (err) {
           console.log(err.stack);
         } else {
@@ -34,7 +62,7 @@ let app = {
 
     search: function () {
       this.purge();
-      api.search(this.query, (err, result) => {
+      api.search(this.query, this.active(), (err, result) => {
         if (err) {
           console.log(err.stack);
         } else {
@@ -42,24 +70,6 @@ let app = {
           this.showFound = true;
         }
       });
-    },
-
-    clean: function (str) {
-      if (str) {
-        return str.replace(/_/g, ' ');
-      }
-    },
-
-    purge: function () {
-      this.random = {};
-      this.found = {};
-      this.info = {};
-      this.showFound = false;
-      this.showResult = false;
-    },
-
-    clear: function () {
-      this.query = '';
     },
 
     gdb: function (game) {
@@ -74,8 +84,47 @@ let app = {
             _.findWhere(result.images, {type: 'clearlogo'}) ||
             _.findWhere(result.images, {type: 'screenshot'});
           this.info.boxart = 'http://thegamesdb.net/banners/_gameviewcache/' + boxart.url;
+          if (this.info.releaseDate) {
+            this.info.releaseDate = (new Date(this.info.releaseDate)).toLocaleDateString();
+          }
         }
       });
+    },
+
+    reset: function () {
+      $('.platform, .platform-dry').removeClass('active');
+    },
+
+    select: function (event) {
+      $(event.target).toggleClass('active');
+    },
+
+    active: function () {
+      return $('.platform.active, .platform-dry.active').find('div').map(function () {
+        return $(this).data('name');
+      }).get();
+    },
+
+    purge: function () {
+      this.random = {};
+      this.found = {};
+      this.info = {};
+      this.showFound = false;
+      this.showResult = false;
+    },
+
+    clear: function () {
+      this.query = '';
+    },
+
+    url: function (plat) {
+      return `/consoles/${plat}.png`;
+    },
+
+    clean: function (str) {
+      if (str) {
+        return str.replace(/_/g, ' ');
+      }
     }
   }
 };

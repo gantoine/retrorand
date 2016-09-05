@@ -22,6 +22,10 @@ exports.about = (request, response) => {
   });
 };
 
+exports.platforms = (request, response) => {
+  response.send(retro.platforms());
+};
+
 exports.random = (request, response) => {
   const result = retro.random(request.query);
   response.send(result);

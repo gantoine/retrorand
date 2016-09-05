@@ -7,4 +7,6 @@ const home = require('./views/home');
 /* eslint-disable no-undef */
 $(document).ready(function () {
   new Vue(home);
+
+  $('.modal-trigger').leanModal();
 });

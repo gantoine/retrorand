@@ -8,4 +8,5 @@ module.exports = app => {
   app.get('/random', games.random);
   app.get('/find', games.find);
   app.get('/info', games.info);
+  app.get('/games', games.games);
 };

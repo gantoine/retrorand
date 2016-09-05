@@ -46,6 +46,17 @@ module.exports = {
     }).fail(function (xhr, status, error) {
       callback(error);
     });
+  },
+
+  games(platform, callback) {
+    $.ajax({
+      data: {platform: platform},
+      url: '/games'
+    }).done(function (data) {
+      callback(null, data);
+    }).fail(function (xhr, status, error) {
+      callback(error);
+    });
   }
 
 };

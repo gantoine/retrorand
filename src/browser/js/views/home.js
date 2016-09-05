@@ -25,12 +25,16 @@ let app = {
   data: {
     random: {},
     query: '',
+    filter: '',
     found: {},
     info: {},
+    platform: '',
+    games: [],
     platforms: platformIcons,
     consoles: [],
     showResult: false,
-    showFound: false
+    showFound: false,
+    showPlatform: false,
   },
 
   created: function () {
@@ -72,12 +76,24 @@ let app = {
       });
     },
 
+    library: function () {
+      this.platform = this.random.platform;
+      this.purge();
+      api.games(this.platform, (err, result) => {
+        if (err) {
+          console.log(err.stack);
+        } else {
+          this.games = result;
+          this.showPlatform = true;
+        }
+      });
+    },
+
     gdb: function (game) {
       api.info(game, (err, result) => {
         if (err) {
           console.log(err.stack);
-        } else if (result) {
-          this.random = {};
+        } else if (result && result.title === this.random.title) {
           this.info = result;
           this.info.url = 'http://thegamesdb.net/game/' + result.id;
           const boxart = _.findWhere(result.images, {type: 'boxart', side: 'front'}) ||
@@ -109,8 +125,10 @@ let app = {
       this.random = {};
       this.found = {};
       this.info = {};
+      this.games = {};
       this.showFound = false;
       this.showResult = false;
+      this.showPlatform = false;
     },
 
     clear: function () {

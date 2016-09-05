@@ -24,9 +24,7 @@ main {
   visibility: visible;
   opacity: 1;
 }
-.content.fade-transition {
-  transition-delay: 0.4s;
-}
+
 .fade-enter, .fade-leave {
   opacity: 0;
   visibility: hidden;

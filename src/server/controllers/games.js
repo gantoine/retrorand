@@ -44,6 +44,10 @@ exports.info = (request, response) => {
   }
 };
 
+exports.games = (request, response) => {
+  response.send(retro.games(request.query.platform));
+};
+
 function fetchInfo(gamesList) {
   thegamesdb.getGame({id: _.first(gamesList).id}).then(sendInfo.bind(this));
 }

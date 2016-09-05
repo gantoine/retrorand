@@ -101,5 +101,14 @@ main.container {
 
 .game-title {
   font-size: 2rem;
-  padding-bottom: 1rem;
+}
+
+.game-platform {
+  font-size: 1.5rem;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.tgdb-results {
+  padding-top: 1rem;
 }

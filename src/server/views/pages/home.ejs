@@ -38,11 +38,13 @@
         <div class="card-panel results grey-text text-darken-4">
           <section v-if="showResult">
             <div class="game-title">{{random.title || info.title}}</div>
-            <div v-show="random.platform">
-              <h5>{{clean(random.platform)}}</h5>
+            <div v-show="random.platform" transition="fade">
+              <a class="game-platform grey-text text-darken-3" @click="library">
+                {{info.platform || clean(random.platform)}}
+              </a>
             </div>
 
-            <div>
+            <div class="tgdb-results">
               <div class="row">
                 <div class="col s6">
                   <img v-show="info.boxart" transition="fade" class="boximage content" v-bind:src="info.boxart"/>
@@ -51,8 +53,7 @@
                   </div>
                 </div>
                 <div class="col s6">
-                  <div v-show="info.id" class="content" transition="fade">
-                    <div v-show="info.platform">{{info.platform}}</div>
+                  <div v-show="info.id" transition="fade">
                     <div v-show="info.releaseDate">Release Date: {{info.releaseDate}}</div>
                     <div v-show="info.ESRB">ESRB Rating: {{info.ESRB}}</div>
                     <div v-show="info.publisher">Publisher: {{info.publisher}}</div>
@@ -76,10 +77,19 @@
             </div>
           </section>
 
-          <section class="search-results" class="content" v-if="showFound" transition="fade">
+          <section class="search-results" v-if="showFound" transition="fade">
             <ul class="collection with-header" v-for="platform in found">
               <li class="collection-header"><h5>{{clean($key)}}</h5></li>
               <li class="collection-item" v-for="game in platform">
+                {{game}}
+              </li>
+            </ul>
+          </section>
+
+          <section class="search-results" v-if="showPlatform" transition="fade">
+            <ul class="collection with-header">
+              <li class="collection-header"><h5>{{platform}}</h5></li>
+              <li class="collection-item" v-for="game in games">
                 {{game}}
               </li>
             </ul>

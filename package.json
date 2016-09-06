@@ -15,7 +15,8 @@
   "scripts": {
     "commit": "git cz",
     "start": "node bin/server.js",
-    "test": "gulp"
+    "test": "gulp",
+    "postinstall": "gulp build"
   },
   "engines": {
     "node": "6.2.2",

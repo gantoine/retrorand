@@ -16,7 +16,7 @@
     "commit": "git cz",
     "start": "node bin/server.js",
     "test": "gulp",
-    "preinstall": "npm install gulp",
+    "heroku-prebuild": "npm install gulp",
     "postinstall": "gulp build"
   },
   "engines": {

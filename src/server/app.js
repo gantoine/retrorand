@@ -25,12 +25,11 @@ app.use(helmet({
 }));
 
 // Static file serving happens everywhere but in production
-if (process.env.NODE_ENV !== 'production') {
-  let staticPath = path.join(__dirname, '..', '..', 'public');
-  let consolePath = path.join(staticPath, 'images', 'consoles');
-  app.use('/static', express.static(staticPath));
-  app.use('/consoles', express.static(consolePath));
-}
+// if (process.env.NODE_ENV !== 'production')
+let staticPath = path.join(__dirname, '..', '..', 'public');
+let consolePath = path.join(staticPath, 'images', 'consoles');
+app.use('/static', express.static(staticPath));
+app.use('/consoles', express.static(consolePath));
 
 // Mount application routes
 routes(app);

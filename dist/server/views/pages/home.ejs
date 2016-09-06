@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Retrorand</title>
+  <link rel="icon" href="static/images/favicon-gamepad.ico">
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js""></script>
+  <script src="static/js/app.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"></script>
+  <script src="https://use.fontawesome.com/e5ec7b10c1.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+
+  <link rel="stylesheet" href="static/scss/app.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+</head>
+
+
+<body>
+
+  <nav class="white">
+  <div class="nav-wrapper container">
+    <a href="/" class="brand-logo brand-logo-small black-text">
+      <img id="header-logo" alt="Gaggle Mail Logo" src="../static/images/random.png"/>
+      <span class="grey-text text-darken-4">RETRORAND</span>
+    </a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li class="tab col s3">
+        <a class="black-text" href="/about">About</a>
+      </li>
+      <li>
+        <a class="black-text" target="_blank" href="http://gantoine.com">
+          Reach Out
+        </a>
+      </li>
+      <li>
+        <a class="black-text" target="_blank"
+            href="https://www.npmjs.com/package/retro-game-names">
+          The Library
+        </a>
+      </li>
+      <li>
+        <a target="_blank" title="Powered by the retro-game-names library!"
+            href="https://github.com/GAntoine/random-game-app"
+            class="waves-effect waves-light btn red darken-3 white-text">
+          Github
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+  <main class="container retroapp">
+    <div class="row">
+      <div class="col s12 center-align">
+        <h1 class="corps-msg white-text">Want to play a retro game, but don't know which one? We can help!</h1>
+      </div>
+    </div>
+    <div class="row content-row main-controls">
+      <div class="col s12 m4 l4">
+        <div>
+          <a class="waves-effect waves-light btn-large yellow darken-2 black-text"
+              @click="roll">
+            Random
+          </a>
+        </div>
+        <div class="or-divider">
+          <span>OR</span>
+        </div>
+        <div class="input-field">
+          <input id="search" type="search" autocomplete="off" v-model="query"
+              @keyup.enter="search" @keyup.esc="clear" class="grey-text text-darken-3">
+          <label for="search">
+            <i class="material-icons search">search</i>
+          </label>
+        </div>
+        <div>
+          <a class="waves-effect waves-light btn-large green lighten-1 white-text modal-trigger"
+              href="#platforms">
+            Filter Platforms
+          </a>
+        </div>
+      </div>
+      <div class="col s12 m8 l8 results-column">
+        <div class="card-panel results grey-text text-darken-3">
+          <section v-if="showResult">
+            <div class="random-results">
+              <div class="game-title">{{random.title || info.title}}</div>
+              <div v-show="random.platform" transition="fade">
+                <a class="game-platform waves-effect waves-teal btn-flat grey-text text-darken-3"
+                    @click="library">
+                  {{info.platform || clean(random.platform)}}
+                </a>
+              </div>
+            </div>
+
+            <div class="tgdb-results">
+              <div class="row">
+                <div v-if="showError" class="fetch-error">
+                  Couldn't retrieve game info from TheGamesDB.
+                </div>
+                <div v-else>
+                  <div class="col s6">
+                    <img v-show="info.boxart" class="materialboxed" transition="fade"
+                        class="boximage content" v-bind:src="info.boxart"/>
+                    <div v-else class="preloader-wrapper big active">
+                      <div class="spinner-layer spinner-blue">
+    <div class="circle-clipper left">
+      <div class="circle"></div>
+    </div><div class="gap-patch">
+      <div class="circle"></div>
+    </div><div class="circle-clipper right">
+      <div class="circle"></div>
+    </div>
+  </div>
+
+                    </div>
+                  </div>
+                  <div class="col s6">
+                    <div v-show="info.id" transition="fade">
+                      <div v-show="info.releaseDate">Release Date: {{info.releaseDate}}</div>
+                      <div v-show="info.ESRB">ESRB Rating: {{info.ESRB}}</div>
+                      <div v-show="info.publisher">Publisher: {{info.publisher}}</div>
+                      <div v-show="info.developer">Developer: {{info.developer}}</div>
+                      <div v-show="info.players">Players: {{info.players}}</div>
+                      <div v-show="info.rating">Rating: {{info.rating}}</div>
+                      <ul v-show="info.genres" class="small-collection">
+                        <li class="small-header">Genres:</li>
+                        <li v-for="genre in info.genres" class="small-item">{{genre}}</li>
+                      </ul>
+                      <a v-show="info.url" v-bind:href="info.url" target="_blank"
+                          class="waves-effect waves-teal btn-flat">
+                        View On TheGamesDB
+                      </a>
+                    </div>
+                    <div v-else class="preloader-wrapper big active">
+                      <div class="spinner-layer spinner-blue">
+    <div class="circle-clipper left">
+      <div class="circle"></div>
+    </div><div class="gap-patch">
+      <div class="circle"></div>
+    </div><div class="circle-clipper right">
+      <div class="circle"></div>
+    </div>
+  </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="search-results" v-if="showFound" transition="fade">
+            <ul class="collection with-header" v-for="pltfrms in found">
+              <li class="collection-header" data-key="{{$key}}" @click="findInfo">
+                <h5>{{clean($key)}}</h5>
+              </li>
+              <li class="collection-item" v-for="pltfrm in pltfrms" @click="foundGameInfo">
+                {{pltfrm}}
+              </li>
+            </ul>
+          </section>
+
+          <section class="platform-results" v-if="showPlatform" transition="fade">
+            <ul class="collection with-header">
+              <li class="collection-header">
+                <h5>{{platform.name || clean(platform.title)}}</h5>
+                <div class="row">
+                  <div class="col s6">
+                    <img v-show="platform.boxart" class="materialboxed" transition="fade"
+                        class="boximage content" v-bind:src="platform.boxart"/>
+                    <div v-else class="preloader-wrapper big active">
+                      <div class="spinner-layer spinner-blue">
+    <div class="circle-clipper left">
+      <div class="circle"></div>
+    </div><div class="gap-patch">
+      <div class="circle"></div>
+    </div><div class="circle-clipper right">
+      <div class="circle"></div>
+    </div>
+  </div>
+
+                    </div>
+                  </div>
+                  <div class="col s6">
+                    <div v-if="platform.id">
+                      <div v-show="platform.developer">Developer: {{platform.developer}}</div>
+                      <div v-show="platform.cpu">CPU: {{platform.cpu}}</div>
+                      <div v-show="platform.display">Display: {{platform.display}}</div>
+                      <div v-show="platform.maxControllers">Max Controllers: {{platform.maxControllers}}</div>
+                      <div v-show="platform.media">Media: {{platform.media}}</div>
+                      <div v-show="platform.memory">Memory: {{platform.memory}}</div>
+                      <div v-show="platform.sound">Sound: {{platform.sound}}</div>
+                      <a v-show="platform.url" v-bind:href="platform.url" target="_blank"
+                          class="waves-effect waves-teal btn-flat">
+                        View On TheGamesDB
+                      </a>
+                    </div>
+                    <div v-else class="preloader-wrapper big active">
+                      <div class="spinner-layer spinner-blue">
+    <div class="circle-clipper left">
+      <div class="circle"></div>
+    </div><div class="gap-patch">
+      <div class="circle"></div>
+    </div><div class="circle-clipper right">
+      <div class="circle"></div>
+    </div>
+  </div>
+
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="collection-item" v-for="game in games" @click="gameInfo">
+                {{game}}
+              </li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <div id="platforms" class="modal bottom-sheet">
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s2 m6 l6">
+        <h4 class="padded-controls">Platforms</h4>
+      </div>
+      <div class="col s2 m2 l2">
+        <a class="waves-effect waves-light btn yellow darken-2 black-text padded-controls"
+            @click="reset">
+          Deselect All
+        </a>
+      </div>
+      <div class="col s8 m4 l4">
+        <div class="input-field">
+          <input id="platform-search" type="search" autocomplete="off" v-model="filter">
+          <label for="platform-search">
+            <i class="material-icons search">search</i>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="platform-collection">
+      <div v-for="plat in platforms | filterBy filter" class="card-panel platform" @click="select">
+        <img v-bind:src="url(plat)"/>
+        <div class="platform-name" data-name="{{plat}}">{{clean(plat)}}</div>
+      </div>
+    </div>
+
+    <div class="platform-collection">
+      <div v-for="cons in consoles | filterBy filter" class="card-panel platform-dry" @click="select">
+        <div data-name="{{cons}}">{{clean(cons)}}</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-light btn-flat">Done</a>
+  </div>
+</div>
+
+
+  </main>
+
+  <footer class="page-footer slim-footer transparent">
+  <div class="footer-copyright">
+    <div class="container white">
+      <div class="left">
+        © 2016 Georges-Antoine Assi. Built with <i class="fa fa-heart"></i> and Express.
+      </div>
+      <div class="right">
+        <a target="_blank" href="https://stackoverflow.com/users/story/1179430">
+          <i class="fa fa-stack-overflow"></i>
+        </a>
+      </div>
+      <div class="right">
+        <a target="_blank" href="https://github.com/GAntoine">
+          <i class="fa fa-github"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+</html>

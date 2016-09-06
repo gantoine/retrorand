@@ -2,6 +2,7 @@
   "name": "retrorand",
   "description": "",
   "scripts": {
+    "postdeploy": "gulp build"
   },
   "env": {
   },

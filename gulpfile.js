@@ -35,10 +35,7 @@ gulp.task('ejs', ['clean'], () => {
 });
 
 gulp.task('nsp', cb => {
-  nsp({
-    package: path.resolve('package.json'),
-    stopOnError: false
-  }, cb);
+  nsp({package: path.resolve('package.json')}, cb);
 });
 
 gulp.task('sass', ['scrub'], () => {

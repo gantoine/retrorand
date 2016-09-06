@@ -47,4 +47,6 @@ jspm_packages
 
 # Misc
 coverage
+public
+dist
 /*.env

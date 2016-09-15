@@ -93,7 +93,7 @@ let app = {
         }
       });
 
-      api.platform(this.platform.title, (err, result) => {
+      api.platform(this.platform.tgdb_id, (err, result) => {
         if (err) {
           console.log(err.stack);
         } else {
@@ -141,7 +141,7 @@ let app = {
     },
 
     gdb: function (game) {
-      api.info(game, (err, result) => {
+      api.info(game.tgdb_id, (err, result) => {
         if (err) {
           console.log(err.stack);
         } else if (result && result.title === this.random.title) {

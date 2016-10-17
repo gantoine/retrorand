@@ -1,14 +1,5 @@
 const retro = require('retro-game-names');
 const thegamesdb = require('thegamesdb');
-const _ = require('underscore');
-
-var platforms = [];
-
-thegamesdb.getPlatformsList().then(savePlatforms);
-
-function savePlatforms(platList) {
-  platforms = platList;
-}
 
 exports.home = (request, response) => {
   response.render('pages/home', {
@@ -36,26 +27,18 @@ exports.find = (request, response) => {
   response.send(result);
 };
 
-exports.info = (request, response) => {
-  const game = request.query.game;
-  const plat = _.findWhere(platforms, {alias: game.platform.replace(/_/g, '-')});
-  if (plat) {
-    thegamesdb.getGamesList({name: game.title, platform: plat.name}).then(fetchInfo.bind(response));
-  }
+exports.games = (request, response) => {
+  response.send(retro.info(request.query.platform));
 };
 
-exports.games = (request, response) => {
-  response.send(retro.games(request.query.platform));
+exports.info = (request, response) => {
+  thegamesdb.getGame({id: request.query.id}).then(sendInfo.bind(response));
 };
 
 exports.platform = (request, response) => {
-  const plat = _.findWhere(platforms, {alias: request.query.title.replace(/_/g, '-')});
-  thegamesdb.getPlatform({id: plat.id}).then(sendPlatform.bind(response));
+  const plat = retro.info(request.query.platform);
+  thegamesdb.getPlatform({id: plat.tgdb_id}).then(sendPlatform.bind(response));
 };
-
-function fetchInfo(gamesList) {
-  thegamesdb.getGame({id: _.first(gamesList).id}).then(sendInfo.bind(this));
-}
 
 function sendInfo(game) {
   this.send(game);

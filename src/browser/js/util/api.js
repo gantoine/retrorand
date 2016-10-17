@@ -36,10 +36,10 @@ module.exports = {
     });
   },
 
-  info(game, callback) {
+  info(id, callback) {
     /* eslint-disable no-undef */
     $.ajax({
-      data: {game: game},
+      data: {id: id},
       url: '/info'
     }).done(function (data) {
       callback(null, data);
@@ -59,9 +59,9 @@ module.exports = {
     });
   },
 
-  platform(title, callback) {
+  platform(platform, callback) {
     $.ajax({
-      data: {title: title},
+      data: {platform: platform},
       url: '/platform'
     }).done(function (data) {
       callback(null, data);

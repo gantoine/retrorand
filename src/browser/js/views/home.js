@@ -72,6 +72,11 @@ let app = {
           if (err) {
             console.log(err.stack);
           } else {
+            if (result.platform) {
+              const res = {};
+              res[`${result.platform}`] = result.titles;
+              result = res;
+            }
             this.found = result;
             this.showFound = true;
           }
@@ -88,8 +93,8 @@ let app = {
         if (err) {
           console.log(err.stack);
         } else {
-          this.games = result;
           this.showPlatform = true;
+          this.games = result;
         }
       });
 
@@ -122,14 +127,23 @@ let app = {
     },
 
     gameInfo: function (event) {
-      const _game = {title: $(event.target).text().trim(), platform: this.platform.title};
+      const _target = $(event.target);
+      const _game = {
+        title: _target.text().trim(),
+        platform: this.platform.title,
+        tgdb_id: _target.data('id')
+      };
       this._general(_game);
     },
 
     foundGameInfo: function (event) {
       const _target = $(event.target);
       const _key = _target.siblings('.collection-header').first().data('key');
-      const _game = {title: _target.text().trim(), platform: _key};
+      const _game = {
+        title: _target.text().trim(),
+        platform: _key,
+        tgdb_id: _target.data('id')
+      };
       this._general(_game);
     },
 
@@ -141,7 +155,7 @@ let app = {
     },
 
     gdb: function (game) {
-      api.info(game, (err, result) => {
+      api.info(game.tgdb_id, (err, result) => {
         if (err) {
           console.log(err.stack);
         } else if (result && result.title === this.random.title) {

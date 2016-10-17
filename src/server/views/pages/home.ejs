@@ -94,8 +94,8 @@
               <li class="collection-header" data-key="{{$key}}" @click="findInfo">
                 <h5>{{clean($key)}}</h5>
               </li>
-              <li class="collection-item" v-for="pltfrm in pltfrms" @click="foundGameInfo">
-                {{pltfrm}}
+              <li class="collection-item" v-for="pltfrm in pltfrms" data-id="{{pltfrm.tgdb_id}}" @click="foundGameInfo">
+                {{pltfrm.title}}
               </li>
             </ul>
           </section>
@@ -132,8 +132,8 @@
                   </div>
                 </div>
               </li>
-              <li class="collection-item" v-for="game in games" @click="gameInfo">
-                {{game}}
+              <li class="collection-item" v-for="game in games.titles" data-id="{{game.tgdb_id}}" @click="gameInfo">
+                {{game.title}}
               </li>
             </ul>
           </section>

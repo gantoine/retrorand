@@ -58,7 +58,7 @@
     "helmet": "2.1.2",
     "isparta": "^4.0.0",
     "morgan": "1.7.0",
-    "retro-game-names": "1.5.0",
+    "retro-game-names": "1.5.1",
     "thegamesdb": "0.1.2",
     "vinyl-source-stream": "1.1.0",
     "vue": "1.0.26"

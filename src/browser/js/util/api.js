@@ -59,9 +59,9 @@ module.exports = {
     });
   },
 
-  platform(id, callback) {
+  platform(platform, callback) {
     $.ajax({
-      data: {id: id},
+      data: {platform: platform},
       url: '/platform'
     }).done(function (data) {
       callback(null, data);

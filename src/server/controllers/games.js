@@ -36,7 +36,8 @@ exports.info = (request, response) => {
 };
 
 exports.platform = (request, response) => {
-  thegamesdb.getPlatform({id: request.query.id}).then(sendPlatform.bind(response));
+  const plat = retro.info(request.query.platform);
+  thegamesdb.getPlatform({id: plat.tgdb_id}).then(sendPlatform.bind(response));
 };
 
 function sendInfo(game) {

@@ -42,6 +42,7 @@ let app = {
     api.platforms((err, result) => {
       if (err) {
         console.log(err.stack);
+        Materialize.toast('I AM ERROR. Could not fetch platforms, please reload or try again.');
       } else {
         this.consoles = _.difference(result, this.platforms);
       }
@@ -57,6 +58,7 @@ let app = {
       api.random(this.active(), (err, result) => {
         if (err) {
           console.log(err.stack);
+          Materialize.toast('I AM ERROR. Could not get random game, please reload or try again.');
         } else {
           this.random = result;
           this.showResult = true;
@@ -71,6 +73,7 @@ let app = {
         api.search(this.query, this.active(), (err, result) => {
           if (err) {
             console.log(err.stack);
+            Materialize.toast('I AM ERROR. Search failed, please reload or try again.');
           } else {
             if (result.platform) {
               const res = {};
@@ -92,6 +95,7 @@ let app = {
       api.games(this.platform.title, (err, result) => {
         if (err) {
           console.log(err.stack);
+          Materialize.toast('I AM ERROR. Could not get games, please reload or try again.');
         } else {
           this.showPlatform = true;
           this.games = result;
@@ -101,6 +105,7 @@ let app = {
       api.platform(this.platform.title, (err, result) => {
         if (err) {
           console.log(err.stack);
+          Materialize.toast('I AM ERROR. Could not fetch platform, please reload or try again.');
         } else {
           this.platform = result;
           this.platform.title = title;
@@ -158,6 +163,7 @@ let app = {
       api.info(game.tgdb_id, (err, result) => {
         if (err) {
           console.log(err.stack);
+          Materialize.toast('I AM ERROR. Could not fetch game, please reload or try again.');
         } else if (result && result.title === this.random.title) {
           this.info = result;
           this.info.url = `http://thegamesdb.net/game/${result.id}`;

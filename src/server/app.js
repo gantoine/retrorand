@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const routes = require('./controllers/routes');
 const morgan = require('morgan');
 const helmet = require('helmet');
+const rollbar = require('rollbar');
 
 let app = express();
 
@@ -16,6 +17,9 @@ app.set('views', path.join(__dirname, 'views'));
 // Configure middleware
 app.use(morgan('combined'));
 app.use(bodyParser.urlencoded({extended: false}));
+
+// Configure rollbar
+app.use(rollbar.errorHandler('122ff73002ba4a39ba23e2f13b9994a4'));
 
 app.use(helmet({
   frameguard: {

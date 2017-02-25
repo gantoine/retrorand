@@ -5,3 +5,7 @@
 [![MIT License](https://img.shields.io/npm/l/retro-game-names.svg?style=flat-square)](http://opensource.org/licenses/MIT)
 
 A demo app to *flex* the [retro-game-names](https://www.npmjs.com/package/retro-game-names) package.
+
+## Status
+
+[![](https://codescene.io/projects/753/status.svg) Get more details at **codescene.io**.](https://codescene.io/projects/753/jobs/latest-successful/results)
